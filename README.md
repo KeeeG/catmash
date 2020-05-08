@@ -16,7 +16,3 @@ The project must be hosted to be publicly accessible.
 
 Technical environment of the project:
 
-Backend (Lambda) langage: 
-- Node.js 12.X
-Database:
-- Aurora (AWS)
