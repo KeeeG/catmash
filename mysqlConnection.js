@@ -1,6 +1,10 @@
 var mysql = require('mysql');
 var config = require('./config.json');
-
+var fs = require("fs");
+var json = JSON.parse(fs.readFileSync('./cats.json'));
+var cats = [];
+var query;
+var queryResults = [];
 var connection = mysql.createConnection({
     host     : config.dbhost,
     user     : config.dbuser,
@@ -9,14 +13,24 @@ var connection = mysql.createConnection({
 });
 
 exports.handler = (event, context, callback) => {
-    connection.query('select * from elections', function (error, results, fields) {
-        if (error) {
-            connection.destroy();
-            throw error;
-        } else {
-            console.log(results);
-            callback(error, results);
-            connection.end(function (err) { callback(err, results);});
-        }
-    });
+  
+  for (var i in json.images) {
+  	query = 'select IFNULL( cat_id, "'+ json.images[i].id +'" ) as cat_id, count(*) as votes from elections WHERE cat_id = "'+ json.images[i].id +'"';
+        connection.query(query , function (error, results, fields) {
+            if (error) {
+                connection.destroy();
+                throw error;
+            } else {
+                queryResults.push([ results[0].cat_id , JSON.stringify(results[0].votes)]);
+            }
+        });
+        
+    }
+    
+    // sorting the table
+    queryResults = queryResults.sort(function(a,b) {
+        return b[1] - a[1];
+    });  
+    callback(null, queryResults);
+    connection.end(function (err) { callback(err, queryResults);});
 };
