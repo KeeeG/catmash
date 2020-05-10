@@ -12,10 +12,9 @@ The application should therefore be composed of two pages:
 - The application must be able to be used from Google Chrome.
 - The project must be published on a public GitHub repository.
 - The project must be hosted to be publicly accessible.
-
 ---------------
-PS: Due to shortage of time, I was able to set up this architecture and implement the lambdas.
-I didn't have enough time to focus on the front-end side.
+PS: Due to shortage of time, I was able to set up this architecture and implement the lambdas. I didn't have enough time to focus on the front-end side.
+
 ---------------
 **Current architecure:** 
 - AWS ( Lambda, API Gateway, VPC, Security Group, MySQL Aurora, S3)
@@ -27,6 +26,7 @@ Life Cycle:
 - API Gateway triggers the two Lambdas written in Node.js 12.6
 - The Lambdas requests and writes into the Amazon Aurora database.
 - PS: The cats infos (id, url) are stored in a static json file used by the lambdas.
+
 ---------------
 **Better architecture if more time have been given:** 
 - AWS ( Lambda, API Gateway, VPC, Security Group, MySQL Aurora, S3, Route53, EC2, CloudFront, Internet Gateway, Elastic IP)
@@ -39,6 +39,7 @@ Life Cycle:
 - Angular will consumer our API via API Gateway
 - API Gateway triggers the two Lambdas written in Node.js 12.6
 - The Lambdas requests and writes into the Amazon Aurora database.
+
 ---------------
 **Testing the project:** 
 Since the project is hosted in a serverless architecture on AWS, we can't run the code pushed on the Github repository.
