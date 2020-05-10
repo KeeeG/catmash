@@ -1,15 +1,16 @@
 var mysql = require('mysql');
 var config = require('./config.json');
 
-// DB Connections params
-var connection = mysql.createConnection({
-    host     : config.dbhost,
-    user     : config.dbuser,
-    password : config.dbpassword,
-    database : config.dbname,
-});
-
 exports.handler = (event, context, callback) => {
+    
+    // DB Connections params
+    var connection = mysql.createConnection({
+        host     : config.dbhost,
+        user     : config.dbuser,
+        password : config.dbpassword,
+        database : config.dbname,
+    });
+    
     connection.query('INSERT INTO elections (cat_id) VALUES ("' + event.cat_id +'")', function (error, results, fields) {
         if (error) {
             connection.destroy();

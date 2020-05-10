@@ -4,15 +4,17 @@ var fs = require("fs");
 var json = JSON.parse(fs.readFileSync('./cats.json'));
 var query;
 var queryResults = [];
-// DB Connections params
-var connection = mysql.createConnection({
-    host     : config.dbhost,
-    user     : config.dbuser,
-    password : config.dbpassword,
-    database : config.dbname,
-});
+
 
 exports.handler = (event, context, callback) => {
+    
+    // DB Connections params
+    var connection = mysql.createConnection({
+        host     : config.dbhost,
+        user     : config.dbuser,
+        password : config.dbpassword,
+        database : config.dbname,
+    });
   
   // Parsing the JSON file, cat by cat  
   for (var i in json.images) {
@@ -24,18 +26,30 @@ exports.handler = (event, context, callback) => {
                 connection.destroy();
                 throw error;
             } else {
-
-            	//pushing the results into one multidimentional array
                 queryResults.push([ results[0].cat_id , JSON.stringify(results[0].votes), results[0].url]);
             }
         });
         
     }
+    
     // sorting the array
     queryResults = queryResults.sort(function(a,b, c) {
         return b[1] - a[1];
     });
     
-    callback(null, queryResults);
-    connection.end(function (err) { callback(err, queryResults);});
+    var o = {} // empty Object
+    var key = 'catsElections';
+    o[key] = []; // empty Array, which you can push() values into
+    
+    // building a json return
+    for (var j in queryResults){
+        var data = {
+            cat_id: queryResults[j][0],
+            votes: queryResults[j][1],
+            url: queryResults[j][2]
+        }
+        o[key].push(data);
+    }
+    callback(null, o);
+    connection.end(function (err) { callback(err, o);});
 };
