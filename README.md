@@ -31,7 +31,7 @@ Life Cycle:
 **Better architecture if more time have been given:** 
 - AWS ( Lambda, API Gateway, VPC, Security Group, MySQL Aurora, S3, Route53, EC2, CloudFront, Internet Gateway, Elastic IP)
 - Programming langage: Node.js 12.6, Angular 8
-![Current AWS architecture](https://catmashvoting.s3.amazonaws.com/expected.jpeg)
+![Current AWS architecture](https://catmashvoting.s3.amazonaws.com/expected.jpeg) 
 Life Cycle:
 - Route 53 will convert the URL request by the final user to the T2 EC2 instance Elastic IP
 - The EC2 instance containes the frontend side of the application which will get the cat images stored in an S3 Bucket
