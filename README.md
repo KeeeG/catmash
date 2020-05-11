@@ -29,6 +29,7 @@ Life Cycle:
 
 ---------------
 **Better architecture if more time have been given:** 
+![Current AWS architecture](https://catmashvoting.s3.amazonaws.com/expected2.jpeg) 
 - AWS ( Lambda, API Gateway, VPC, Security Group, MySQL Aurora, S3, Route53, EC2, CloudFront, Internet Gateway, Elastic IP)
 - Programming langage: Node.js 12.6, Angular 8
 Life Cycle:
