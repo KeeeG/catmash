@@ -1,41 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script type="text/javascript">
-    function getAll(){
-        const url='https://22ygqfaki5.execute-api.us-east-1.amazonaws.com/default/getAllVotes';
-        var req = new XMLHttpRequest();
-        req.responseType = 'json';
-        req.open('GET', url, true);
-        req.onload  = function() {
-            var jsonResponse = req.response;
-            // do something with jsonResponse
-            for (var i = req.response.CatsElections.length - 1; i >= 0; i--){
-                var table = document.getElementById("table");
-                var row = table.insertRow(0);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                cell1.innerHTML = req.response.CatsElections[i].cat_id;
-                cell2.innerHTML = req.response.CatsElections[i].votes;
-                cell3.innerHTML="<img src='"+req.response.CatsElections[i].url+"' width='150px' height='80px'>";
-            }
-        };
-        req.send(null);
-    }
-    </script>
-  </head>
-  <body onload="getAll()">
-    <a href="voting.html" class="button3">Vote here =></a>
-    <div class="table-users">
-      <div class="header">Users</div>
-      <table cellspacing="0" id="table">
-        <tr>
-          <th>Cat ID</th>
-          <th>Votes</th>
-          <th>Pic !</th>
-        </tr>
-      </body>
-    </html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vote now !</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--===============================================================================================-->
+		<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+		<script type="text/javascript">
+		function getAll(){
+			const url='https://22ygqfaki5.execute-api.us-east-1.amazonaws.com/default/getAllVotes';
+			var req = new XMLHttpRequest();
+			req.responseType = 'json';
+			req.open('GET', url, true);
+			req.onload  = function() {
+				var jsonResponse = req.response;
+				// do something with jsonResponse
+				for (var i = 0; i < req.response.CatsElections.length ;i++){
+					var table = document.getElementById("table");
+					var row = table.insertRow(-1);
+					var cell1 = row.insertCell(0);
+					var cell2 = row.insertCell(1);
+					var cell3 = row.insertCell(2);
+					cell1.innerHTML = req.response.CatsElections[i].cat_id;
+					cell2.innerHTML = req.response.CatsElections[i].votes;
+					cell3.innerHTML="<img src='"+req.response.CatsElections[i].url+"' width='200px' height='80px'>";
+				}
+			};
+			req.send(null);
+		}
+		</script>
+	</head>
+	<body onload="getAll()">
+		<div class="container">
+			<a  class="btn-gradient cyan mini" href="voting.html">Vote now !!</a>
+		</div>
+		<div class="limiter">
+			<div class="container-table100">
+				<div class="wrap-table100">
+					<div class="table100">
+						<table id="table">
+							<thead>
+								<tr class="table100-head">
+									<th class="column1">Cat ID</th>
+									<th class="column2">Votes</th>
+									<th class="column3">The Cat</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr></tr>
+						</tbody>
+					</body>
+				</html>
